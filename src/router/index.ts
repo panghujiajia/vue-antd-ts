@@ -16,7 +16,9 @@ const router: any = new VueRouter({
 });
 
 // 路由白名单
-const routeWhiteList = ['/404', '/403'];
+const routeWhiteList = constantRouterMap.map(item => {
+	return item.path;
+});
 
 const ShowModal = (tip: string, next: any) => {
 	Modal.info({
@@ -166,7 +168,7 @@ router.beforeEach(async (to: any, from: any, next: any) => {
 		}
 	} else {
 		if (
-			['/login'].includes(to.fullPath) ||
+			routeWhiteList.includes(to.fullPath) ||
 			(to.meta.role && to.meta.role.includes('root'))
 		) {
 			next();
